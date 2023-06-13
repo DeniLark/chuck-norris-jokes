@@ -5,12 +5,22 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material"
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../store/hooks"
+import { fetchJokeAction } from "../store/slices/appSlice"
 
 interface IProps {
   drawerWidth: number
 }
 
 function AppMain({ drawerWidth }: IProps) {
+  const dispatch = useAppDispatch()
+  const joke =
+    useAppSelector((state) => state.app.joke) ||
+    "This is going to be a joke"
+
   return (
     <Box
       component="main"
@@ -21,9 +31,14 @@ function AppMain({ drawerWidth }: IProps) {
       }}
     >
       <Toolbar />
-      <Button variant="contained">Get joke</Button>
+      <Button
+        variant="contained"
+        onClick={() => dispatch(fetchJokeAction())}
+      >
+        Get joke
+      </Button>
       <Divider sx={{ my: 2 }} />
-      <Typography>This is going to be a joke</Typography>
+      <Typography>{joke}</Typography>
     </Box>
   )
 }

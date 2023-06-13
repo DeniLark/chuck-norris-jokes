@@ -79,6 +79,8 @@ const appSlice = createSlice({
         selected: false,
       },
     ],
+    joke: "",
+    isLoad: false,
   },
   reducers: {
     changeCategory: (
@@ -91,9 +93,20 @@ const appSlice = createSlice({
           : (c.selected = false)
       )
     },
+    setJoke: (state, action: PayloadAction<string>) => {
+      state.joke = action.payload
+    },
+    setLoadTrue: (state) => {
+      state.isLoad = true
+    },
+    setLoadFalse: (state) => {
+      state.isLoad = false
+    },
   },
 })
 
-export const testAction = createAction(Action.TEST_ACTION)
-export const { changeCategory } = appSlice.actions
+export const fetchJokeAction = createAction(
+  Action.FETCH_JOKE
+)
+export const { changeCategory, setJoke } = appSlice.actions
 export default appSlice.reducer
