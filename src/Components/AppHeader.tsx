@@ -1,7 +1,12 @@
 import AppBar from "@mui/material/AppBar"
-import { Box, IconButton, Toolbar } from "@mui/material"
+import {
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
-import RefreshIcon from "@mui/icons-material/Refresh"
+import { inflectionCategory } from "../utils"
+import { useAppSelector } from "../store/hooks"
 
 interface IProps {
   drawerWidth: number
@@ -12,6 +17,11 @@ function Header({
   drawerWidth,
   handleDrawerToggle,
 }: IProps) {
+  const category = useAppSelector((state) =>
+    state.app.categories.find((c) => c.selected && c.title)
+  )
+  const title = inflectionCategory(category?.title || "")
+
   return (
     <AppBar
       position="fixed"
@@ -20,28 +30,27 @@ function Header({
         ml: { sm: `${drawerWidth}px` },
       }}
     >
-      <Toolbar
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Box>
-        <Box>
-          <IconButton color="inherit">
-            <RefreshIcon />
-          </IconButton>
-        </Box>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2, display: { sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          variant="h6"
+          component="span"
+          sx={{
+            "&:first-letter": {
+              textTransform: "uppercase",
+            },
+          }}
+        >
+          {title}
+        </Typography>
       </Toolbar>
     </AppBar>
   )
