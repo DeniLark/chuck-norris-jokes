@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Divider,
   Toolbar,
   Typography,
@@ -9,6 +8,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../store/hooks"
+import ButtonLoading from "./ButtonLoading"
 import { fetchJokeAction } from "../store/slices/appSlice"
 
 interface IProps {
@@ -20,6 +20,7 @@ function AppMain({ drawerWidth }: IProps) {
   const joke =
     useAppSelector((state) => state.app.joke) ||
     "This is going to be a joke"
+  const isLoad = useAppSelector((state) => state.app.isLoad)
 
   return (
     <Box
@@ -31,12 +32,12 @@ function AppMain({ drawerWidth }: IProps) {
       }}
     >
       <Toolbar />
-      <Button
-        variant="contained"
-        onClick={() => dispatch(fetchJokeAction())}
+      <ButtonLoading
+        handlerClick={() => dispatch(fetchJokeAction())}
+        isLoad={isLoad}
       >
         Get joke
-      </Button>
+      </ButtonLoading>
       <Divider sx={{ my: 2 }} />
       <Typography>{joke}</Typography>
     </Box>

@@ -1,6 +1,10 @@
 import { put, takeEvery, call } from "redux-saga/effects"
 import Action from "./actionTypes"
-import { setJoke } from "../store/slices/appSlice"
+import {
+  setJoke,
+  setLoadTrue,
+  setLoadFalse,
+} from "../store/slices/appSlice"
 
 export function* sagaWatcher() {
   yield takeEvery(Action.FETCH_JOKE, sagaWorkerFetchJoke)
@@ -12,8 +16,10 @@ interface IFetchJoke {
 
 function* sagaWorkerFetchJoke() {
   try {
+    yield put(setLoadTrue())
     const json: IFetchJoke = yield call(fetchJoke)
     yield put(setJoke(json.value))
+    yield put(setLoadFalse())
   } catch (err) {
     // console.log(err)
   }

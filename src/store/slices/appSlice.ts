@@ -108,5 +108,10 @@ const appSlice = createSlice({
 export const fetchJokeAction = createAction(
   Action.FETCH_JOKE
 )
-export const { changeCategory, setJoke } = appSlice.actions
+export const {
+  changeCategory,
+  setJoke,
+  setLoadTrue,
+  setLoadFalse,
+} = appSlice.actions
 export default appSlice.reducer
