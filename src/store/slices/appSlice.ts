@@ -79,6 +79,8 @@ const appSlice = createSlice({
     joke: null as IJoke | null,
     isLoad: false,
     jokes: loadJokes(),
+    isSnackBar: false,
+    textSnackBar: "",
   },
   reducers: {
     changeCategory: (
@@ -108,6 +110,17 @@ const appSlice = createSlice({
       state.jokes = newJokes
       saveJokes(newJokes)
     },
+    openSnackbar: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.isSnackBar = true
+      state.textSnackBar = action.payload
+    },
+    closeSnackbar: (state) => {
+      state.isSnackBar = false
+      state.textSnackBar = ""
+    },
   },
 })
 
@@ -121,5 +134,7 @@ export const {
   setLoadFalse,
   addJoke,
   removeJoke,
+  openSnackbar,
+  closeSnackbar,
 } = appSlice.actions
 export default appSlice.reducer

@@ -6,7 +6,12 @@ import {
   IconButton,
 } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { removeJoke } from "../store/slices/appSlice"
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"
+
+import {
+  removeJoke,
+  openSnackbar,
+} from "../store/slices/appSlice"
 import { useAppDispatch } from "../store/hooks"
 
 interface IProps {
@@ -43,6 +48,17 @@ function JokeCard({ id, category, text }: IProps) {
           onClick={() => dispatch(removeJoke(id))}
         >
           <DeleteIcon />
+        </IconButton>
+        <IconButton
+          aria-label="copy joke"
+          onClick={() => {
+            setTimeout(() => {
+              dispatch(openSnackbar("Copy joke"))
+              navigator.clipboard.writeText(text)
+            }, 0)
+          }}
+        >
+          <ContentCopyIcon />
         </IconButton>
       </Box>
     </Card>
