@@ -21,6 +21,9 @@ interface IProps {
 
 function AppMain({ drawerWidth }: IProps) {
   const dispatch = useAppDispatch()
+  const currentCategory = useAppSelector(
+    (state) => state.app.currentCategory
+  )
 
   const isLoad = useAppSelector((state) => state.app.isLoad)
   const jokes = useAppSelector((state) => state.app.jokes)
@@ -37,7 +40,9 @@ function AppMain({ drawerWidth }: IProps) {
       <Toolbar />
 
       <ButtonLoading
-        handlerClick={() => dispatch(fetchJokeAction())}
+        handlerClick={() =>
+          dispatch(fetchJokeAction(currentCategory))
+        }
         isLoad={isLoad}
       >
         Get joke

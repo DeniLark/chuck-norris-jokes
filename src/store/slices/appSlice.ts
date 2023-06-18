@@ -15,76 +15,64 @@ const appSlice = createSlice({
   name: "app",
   initialState: {
     categories: [
-      { title: "all", icon: "list_alt", selected: true },
+      { title: "all", icon: "list_alt" },
       {
         title: "animal",
         icon: "pets",
-        selected: false,
       },
       {
         title: "career",
         icon: "work",
-        selected: false,
       },
       {
         title: "celebrity",
         icon: "star",
-        selected: false,
       },
-      { title: "dev", icon: "computer", selected: false },
+      { title: "dev", icon: "computer" },
       {
         title: "explicit",
         icon: "18_up_rating",
-        selected: false,
       },
       {
         title: "fashion",
         icon: "diamond",
-        selected: false,
       },
       {
         title: "food",
         icon: "restaurant",
-        selected: false,
       },
       {
         title: "history",
         icon: "history_edu",
-        selected: false,
       },
       {
         title: "money",
         icon: "attach_money",
-        selected: false,
       },
-      { title: "movie", icon: "live_tv", selected: false },
+      { title: "movie", icon: "live_tv" },
       {
         title: "music",
         icon: "music_note",
-        selected: false,
       },
       {
         title: "political",
         icon: "gavel",
-        selected: false,
       },
       {
         title: "religion",
         icon: "church",
-        selected: false,
       },
       {
         title: "science",
         icon: "science",
-        selected: false,
       },
-      { title: "sport", icon: "sports", selected: false },
+      { title: "sport", icon: "sports" },
       {
         title: "travel",
         icon: "flight",
-        selected: false,
       },
     ],
+    currentCategory: "dev",
     joke: null as IJoke | null,
     isLoad: false,
     jokes: loadJokes(),
@@ -94,11 +82,7 @@ const appSlice = createSlice({
       state,
       action: PayloadAction<string>
     ) => {
-      state.categories.map((c) =>
-        c.title === action.payload
-          ? (c.selected = true)
-          : (c.selected = false)
-      )
+      state.currentCategory = action.payload
     },
     setJoke: (state, action: PayloadAction<IJoke>) => {
       state.joke = action.payload
@@ -117,7 +101,7 @@ const appSlice = createSlice({
   },
 })
 
-export const fetchJokeAction = createAction(
+export const fetchJokeAction = createAction<string>(
   Action.FETCH_JOKE
 )
 export const {

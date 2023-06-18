@@ -16,6 +16,9 @@ function DrawerList() {
   const listItems = useAppSelector(
     (state) => state.app.categories
   )
+  const currentCategory = useAppSelector(
+    (state) => state.app.currentCategory
+  )
   const dispatch = useAppDispatch()
 
   return (
@@ -24,7 +27,7 @@ function DrawerList() {
         {listItems.map((item) => (
           <ListItem key={item.title} disablePadding>
             <ListItemButton
-              selected={item.selected}
+              selected={item.title === currentCategory}
               onClick={() =>
                 dispatch(changeCategory(item.title))
               }

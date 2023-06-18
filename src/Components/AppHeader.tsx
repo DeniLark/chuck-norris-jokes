@@ -17,10 +17,10 @@ function Header({
   drawerWidth,
   handleDrawerToggle,
 }: IProps) {
-  const category = useAppSelector((state) =>
-    state.app.categories.find((c) => c.selected && c.title)
+  const currentCategory = useAppSelector(
+    (state) => state.app.currentCategory
   )
-  const title = inflectionCategory(category?.title || "")
+  const title = inflectionCategory(currentCategory || "")
 
   return (
     <AppBar
