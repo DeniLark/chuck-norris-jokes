@@ -7,10 +7,12 @@ import {
   addJoke,
   IJoke,
 } from "../store/slices/appSlice"
+import { PayloadAction } from "@reduxjs/toolkit"
 
 interface IFetchJoke {
   id: string
   value: string
+  categories: string[]
 }
 
 export function* sagaWatcher() {
@@ -18,14 +20,19 @@ export function* sagaWatcher() {
 }
 
 const fetchToJoke = (fetchJoke: IFetchJoke): IJoke => {
-  const { id, value: text } = fetchJoke
-  return { id, text }
+  const { id, value: text, categories } = fetchJoke
+  const category = categories.length ? categories[0] : "all"
+  return { id, text, category }
 }
 
-function* sagaWorkerFetchJoke() {
+function* sagaWorkerFetchJoke(
+  action: PayloadAction<string>
+) {
   try {
     yield put(setLoadTrue())
-    const json: IFetchJoke = yield call(fetchJoke)
+    const json: IFetchJoke = yield call(
+      fetchJoke.bind(null, action.payload)
+    )
     const j = fetchToJoke(json)
     yield put(setJoke(j))
     yield put(addJoke(j))
@@ -33,9 +40,12 @@ function* sagaWorkerFetchJoke() {
   } catch (err) {}
 }
 
-async function fetchJoke() {
-  const response = await fetch(
-    "https://api.chucknorris.io/jokes/random"
-  )
+async function fetchJoke(category: string = "all") {
+  const baseUrl = "https://api.chucknorris.io/jokes/random"
+  const url =
+    category === "all"
+      ? baseUrl
+      : `${baseUrl}?category=${category}`
+  const response = await fetch(url)
   return await response.json()
 }

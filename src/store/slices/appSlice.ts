@@ -9,6 +9,7 @@ import { loadJokes, saveJokes } from "../localStorage"
 export interface IJoke {
   id: string
   text: string
+  category: string
 }
 
 const appSlice = createSlice({
