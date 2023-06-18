@@ -1,10 +1,8 @@
 import {
   Box,
-  Card,
   Collapse,
   Divider,
   Toolbar,
-  Typography,
 } from "@mui/material"
 import {
   useAppDispatch,
@@ -14,6 +12,7 @@ import { TransitionGroup } from "react-transition-group"
 
 import ButtonLoading from "./ButtonLoading"
 import { fetchJokeAction } from "../store/slices/appSlice"
+import JokeCard from "./JokeCard"
 
 interface IProps {
   drawerWidth: number
@@ -49,11 +48,9 @@ function AppMain({ drawerWidth }: IProps) {
       </ButtonLoading>
       <Divider sx={{ my: 2 }} />
       <TransitionGroup>
-        {jokes.map(({ id, text }) => (
+        {jokes.map(({ id, text, category }) => (
           <Collapse key={id}>
-            <Card sx={{ p: 2, mb: 1 }}>
-              <Typography>{text}</Typography>
-            </Card>
+            <JokeCard category={category} text={text} />
           </Collapse>
         ))}
       </TransitionGroup>
