@@ -1,13 +1,13 @@
 import { useState } from "react"
 
-import Box from "@mui/material/Box"
+import { Box } from "@mui/material"
 
 import AppMain from "./Components/AppMain"
 import AppDrawer from "./Components/AppDrawer"
 import AppHeader from "./Components/AppHeader"
 import AppSnackbar from "./Components/AppSnackbar"
-
-const drawerWidth = 240
+import { drawerWidth } from "./constants"
+import AppFAB from "./Components/AppFAB"
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -30,6 +30,8 @@ function App() {
       <AppMain drawerWidth={drawerWidth} />
 
       <AppSnackbar />
+
+      <AppFAB />
     </Box>
   )
 }
