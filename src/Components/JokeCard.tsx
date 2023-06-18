@@ -6,13 +6,18 @@ import {
   IconButton,
 } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
+import { removeJoke } from "../store/slices/appSlice"
+import { useAppDispatch } from "../store/hooks"
 
 interface IProps {
+  id: string
   text: string
   category: string
 }
 
-function JokeCard({ category, text }: IProps) {
+function JokeCard({ id, category, text }: IProps) {
+  const dispatch = useAppDispatch()
+
   return (
     <Card
       sx={{
@@ -33,7 +38,10 @@ function JokeCard({ category, text }: IProps) {
           justifyContent: "center",
         }}
       >
-        <IconButton aria-label="remove joke">
+        <IconButton
+          aria-label="remove joke"
+          onClick={() => dispatch(removeJoke(id))}
+        >
           <DeleteIcon />
         </IconButton>
       </Box>

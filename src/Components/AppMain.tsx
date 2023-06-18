@@ -3,6 +3,7 @@ import {
   Collapse,
   Divider,
   Toolbar,
+  Typography,
 } from "@mui/material"
 import {
   useAppDispatch,
@@ -47,10 +48,15 @@ function AppMain({ drawerWidth }: IProps) {
         Get joke
       </ButtonLoading>
       <Divider sx={{ my: 2 }} />
+      {!jokes.length && <Typography>No jokes</Typography>}
       <TransitionGroup>
         {jokes.map(({ id, text, category }) => (
           <Collapse key={id}>
-            <JokeCard category={category} text={text} />
+            <JokeCard
+              category={category}
+              text={text}
+              id={id}
+            />
           </Collapse>
         ))}
       </TransitionGroup>

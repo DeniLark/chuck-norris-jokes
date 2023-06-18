@@ -6,8 +6,10 @@ import {
 import Action from "../actionTypes"
 import { loadJokes, saveJokes } from "../localStorage"
 
+type Id = string
+
 export interface IJoke {
-  id: string
+  id: Id
   text: string
   category: string
 }
@@ -99,6 +101,13 @@ const appSlice = createSlice({
       jokes.unshift(action.payload)
       saveJokes(jokes)
     },
+    removeJoke: (state, action: PayloadAction<Id>) => {
+      const newJokes = state.jokes.filter(
+        (j) => j.id !== action.payload
+      )
+      state.jokes = newJokes
+      saveJokes(newJokes)
+    },
   },
 })
 
@@ -111,5 +120,6 @@ export const {
   setLoadTrue,
   setLoadFalse,
   addJoke,
+  removeJoke,
 } = appSlice.actions
 export default appSlice.reducer
