@@ -11,8 +11,12 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import {
   removeJoke,
   openSnackbar,
+  closeSnackbar,
 } from "../store/slices/appSlice"
-import { useAppDispatch } from "../store/hooks"
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../store/hooks"
 
 interface IProps {
   id: string
@@ -22,6 +26,9 @@ interface IProps {
 
 function JokeCard({ id, category, text }: IProps) {
   const dispatch = useAppDispatch()
+  const isSnackBar = useAppSelector(
+    (state) => state.app.isSnackBar
+  )
 
   return (
     <Card
@@ -52,10 +59,12 @@ function JokeCard({ id, category, text }: IProps) {
         <IconButton
           aria-label="copy joke"
           onClick={() => {
+            const timeout = isSnackBar ? 100 : 0
+            dispatch(closeSnackbar())
             setTimeout(() => {
               dispatch(openSnackbar("Copy joke"))
               navigator.clipboard.writeText(text)
-            }, 0)
+            }, timeout)
           }}
         >
           <ContentCopyIcon />
