@@ -4,6 +4,12 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit"
 import Action from "../actionTypes"
+import { loadJokes, saveJokes } from "../localStorage"
+
+export interface IJoke {
+  id: string
+  text: string
+}
 
 const appSlice = createSlice({
   name: "app",
@@ -79,8 +85,9 @@ const appSlice = createSlice({
         selected: false,
       },
     ],
-    joke: "",
+    joke: null as IJoke | null,
     isLoad: false,
+    jokes: loadJokes(),
   },
   reducers: {
     changeCategory: (
@@ -93,7 +100,7 @@ const appSlice = createSlice({
           : (c.selected = false)
       )
     },
-    setJoke: (state, action: PayloadAction<string>) => {
+    setJoke: (state, action: PayloadAction<IJoke>) => {
       state.joke = action.payload
     },
     setLoadTrue: (state) => {
@@ -101,6 +108,11 @@ const appSlice = createSlice({
     },
     setLoadFalse: (state) => {
       state.isLoad = false
+    },
+    addJoke: (state, action: PayloadAction<IJoke>) => {
+      let jokes = state.jokes
+      jokes.unshift(action.payload)
+      saveJokes(jokes)
     },
   },
 })
@@ -113,5 +125,6 @@ export const {
   setJoke,
   setLoadTrue,
   setLoadFalse,
+  addJoke,
 } = appSlice.actions
 export default appSlice.reducer

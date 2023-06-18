@@ -4,25 +4,33 @@ import {
   setJoke,
   setLoadTrue,
   setLoadFalse,
+  addJoke,
+  IJoke,
 } from "../store/slices/appSlice"
+
+interface IFetchJoke {
+  id: string
+  value: string
+}
 
 export function* sagaWatcher() {
   yield takeEvery(Action.FETCH_JOKE, sagaWorkerFetchJoke)
 }
 
-interface IFetchJoke {
-  value: string
+const fetchToJoke = (fetchJoke: IFetchJoke): IJoke => {
+  const { id, value: text } = fetchJoke
+  return { id, text }
 }
 
 function* sagaWorkerFetchJoke() {
   try {
     yield put(setLoadTrue())
     const json: IFetchJoke = yield call(fetchJoke)
-    yield put(setJoke(json.value))
+    const j = fetchToJoke(json)
+    yield put(setJoke(j))
+    yield put(addJoke(j))
     yield put(setLoadFalse())
-  } catch (err) {
-    // console.log(err)
-  }
+  } catch (err) {}
 }
 
 async function fetchJoke() {

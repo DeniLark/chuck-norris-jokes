@@ -1,5 +1,7 @@
 import {
   Box,
+  Card,
+  Collapse,
   Divider,
   Toolbar,
   Typography,
@@ -8,6 +10,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../store/hooks"
+import { TransitionGroup } from "react-transition-group"
+
 import ButtonLoading from "./ButtonLoading"
 import { fetchJokeAction } from "../store/slices/appSlice"
 
@@ -17,10 +21,9 @@ interface IProps {
 
 function AppMain({ drawerWidth }: IProps) {
   const dispatch = useAppDispatch()
-  const joke =
-    useAppSelector((state) => state.app.joke) ||
-    "This is going to be a joke"
+
   const isLoad = useAppSelector((state) => state.app.isLoad)
+  const jokes = useAppSelector((state) => state.app.jokes)
 
   return (
     <Box
@@ -32,6 +35,7 @@ function AppMain({ drawerWidth }: IProps) {
       }}
     >
       <Toolbar />
+
       <ButtonLoading
         handlerClick={() => dispatch(fetchJokeAction())}
         isLoad={isLoad}
@@ -39,7 +43,15 @@ function AppMain({ drawerWidth }: IProps) {
         Get joke
       </ButtonLoading>
       <Divider sx={{ my: 2 }} />
-      <Typography>{joke}</Typography>
+      <TransitionGroup>
+        {jokes.map(({ id, text }) => (
+          <Collapse key={id}>
+            <Card sx={{ p: 2, mb: 1 }}>
+              <Typography>{text}</Typography>
+            </Card>
+          </Collapse>
+        ))}
+      </TransitionGroup>
     </Box>
   )
 }
