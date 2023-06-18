@@ -32,7 +32,14 @@ function DrawerList() {
               <ListItemIcon>
                 <Icon>{item.icon}</Icon>
               </ListItemIcon>
-              <ListItemText primary={item.title} />
+              <ListItemText
+                sx={{
+                  "&:first-letter": {
+                    textTransform: "uppercase",
+                  },
+                }}
+                primary={item.title}
+              />
             </ListItemButton>
           </ListItem>
         ))}
