@@ -6,8 +6,9 @@ import AppMain from "./Components/AppMain"
 import AppDrawer from "./Components/AppDrawer"
 import AppHeader from "./Components/AppHeader"
 import AppSnackbar from "./Components/AppSnackbar"
-import { drawerWidth } from "./constants"
 import AppFAB from "./Components/AppFAB"
+import AppDialogAbout from "./Components/AppDialogAbout"
+import { drawerWidth } from "./constants"
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -30,6 +31,8 @@ function App() {
       <AppMain drawerWidth={drawerWidth} />
 
       <AppSnackbar />
+
+      <AppDialogAbout />
 
       <AppFAB />
     </Box>

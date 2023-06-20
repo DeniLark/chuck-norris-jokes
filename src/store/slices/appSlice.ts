@@ -81,6 +81,7 @@ const appSlice = createSlice({
     jokes: loadJokes(),
     isSnackBar: false,
     textSnackBar: "",
+    isDialogAboutApp: true,
   },
   reducers: {
     changeCategory: (
@@ -121,6 +122,12 @@ const appSlice = createSlice({
       state.isSnackBar = false
       state.textSnackBar = ""
     },
+    openDialogAboutApp: (state) => {
+      state.isDialogAboutApp = true
+    },
+    closeDialogAboutApp: (state) => {
+      state.isDialogAboutApp = false
+    },
   },
 })
 
@@ -136,5 +143,7 @@ export const {
   removeJoke,
   openSnackbar,
   closeSnackbar,
+  openDialogAboutApp,
+  closeDialogAboutApp,
 } = appSlice.actions
 export default appSlice.reducer

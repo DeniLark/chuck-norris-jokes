@@ -5,8 +5,14 @@ import {
   Typography,
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
+import HelpIcon from "@mui/icons-material/Help"
+
 import { inflectionCategory } from "../utils"
-import { useAppSelector } from "../store/hooks"
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../store/hooks"
+import { openDialogAboutApp } from "../store/slices/appSlice"
 
 interface IProps {
   drawerWidth: number
@@ -21,6 +27,8 @@ function Header({
     (state) => state.app.currentCategory
   )
   const title = inflectionCategory(currentCategory || "")
+
+  const dispatch = useAppDispatch()
 
   return (
     <AppBar
@@ -47,10 +55,17 @@ function Header({
             "&:first-letter": {
               textTransform: "uppercase",
             },
+            flexGrow: 1,
           }}
         >
           {title}
         </Typography>
+        <IconButton
+          color="inherit"
+          onClick={() => dispatch(openDialogAboutApp())}
+        >
+          <HelpIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   )
