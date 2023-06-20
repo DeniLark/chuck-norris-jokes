@@ -101,6 +101,15 @@ const appSlice = createSlice({
     },
     addJoke: (state, action: PayloadAction<IJoke>) => {
       let jokes = state.jokes
+      const index = jokes.findIndex(
+        (j) => j.id === action.payload.id
+      )
+      if (index >= 0) {
+        state.isSnackBar = true
+        state.textSnackBar = "Joke has been received"
+        jokes.splice(index, 1)
+      }
+
       jokes.unshift(action.payload)
       saveJokes(jokes)
     },
