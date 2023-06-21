@@ -23,7 +23,11 @@ function AppDialogAbout() {
   const closeDialog = () => dispatch(closeDialogAboutApp())
 
   return (
-    <Dialog open={isOpen} maxWidth="lg">
+    <Dialog
+      open={isOpen}
+      maxWidth="lg"
+      onClose={closeDialog}
+    >
       <DialogTitle>
         About app
         <IconButton
