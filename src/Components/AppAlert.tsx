@@ -3,10 +3,7 @@ import {
   useAppSelector,
   useAppDispatch,
 } from "../store/hooks"
-import {
-  openAlert,
-  closeAlert,
-} from "../store/slices/appSlice"
+import { closeAlert } from "../store/slices/appSlice"
 
 function AppAlert() {
   const textAlert = useAppSelector(
