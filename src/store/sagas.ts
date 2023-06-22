@@ -6,6 +6,7 @@ import {
   setLoadFalse,
   addJoke,
   IJoke,
+  openAlert,
 } from "../store/slices/appSlice"
 import { PayloadAction } from "@reduxjs/toolkit"
 
@@ -36,8 +37,11 @@ function* sagaWorkerFetchJoke(
     const j = fetchToJoke(json)
     yield put(setJoke(j))
     yield put(addJoke(j))
+  } catch (err) {
+    yield put(openAlert("An error on the server"))
+  } finally {
     yield put(setLoadFalse())
-  } catch (err) {}
+  }
 }
 
 async function fetchJoke(category: string = "all") {

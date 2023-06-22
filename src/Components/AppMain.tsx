@@ -11,9 +11,11 @@ import {
 } from "../store/hooks"
 import { TransitionGroup } from "react-transition-group"
 
-import ButtonLoading from "./ButtonLoading"
 import { fetchJokeAction } from "../store/slices/appSlice"
+
+import ButtonLoading from "./ButtonLoading"
 import JokeCard from "./JokeCard"
+import AppAlert from "./AppAlert"
 
 interface IProps {
   drawerWidth: number
@@ -47,6 +49,9 @@ function AppMain({ drawerWidth }: IProps) {
       >
         Get joke
       </ButtonLoading>
+
+      <AppAlert />
+
       <Divider sx={{ my: 2 }} />
       {!jokes.length && <Typography>No jokes</Typography>}
       <TransitionGroup>
