@@ -84,7 +84,6 @@ const appSlice = createSlice({
     joke: null as IJoke | null,
     isLoad: false,
     jokes: loadJokes(),
-    isSnackBar: false,
     textSnackBar: "",
     isDialogAboutApp: !getIsDialogShow(),
     textAlert: "",
@@ -111,7 +110,6 @@ const appSlice = createSlice({
         (j) => j.id === action.payload.id
       )
       if (index >= 0) {
-        state.isSnackBar = true
         state.textSnackBar = "Joke has been received"
         jokes.splice(index, 1)
       }
@@ -130,11 +128,9 @@ const appSlice = createSlice({
       state,
       action: PayloadAction<string>
     ) => {
-      state.isSnackBar = true
       state.textSnackBar = action.payload
     },
     closeSnackbar: (state) => {
-      state.isSnackBar = false
       state.textSnackBar = ""
     },
     openDialogAboutApp: (state) => {

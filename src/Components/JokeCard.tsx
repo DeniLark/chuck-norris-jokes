@@ -27,7 +27,7 @@ interface IProps {
 function JokeCard({ id, category, text }: IProps) {
   const dispatch = useAppDispatch()
   const isSnackBar = useAppSelector(
-    (state) => state.app.isSnackBar
+    (state) => !!state.app.textSnackBar
   )
 
   return (

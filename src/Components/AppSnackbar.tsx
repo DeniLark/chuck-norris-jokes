@@ -7,12 +7,12 @@ import CloseIcon from "@mui/icons-material/Close"
 import { closeSnackbar } from "../store/slices/appSlice"
 
 function AppSnackbar() {
-  const isOpenSnackbar = useAppSelector(
-    (state) => state.app.isSnackBar
-  )
   const textSnackBar = useAppSelector(
     (state) => state.app.textSnackBar
   )
+
+  const isOpenSnackbar = !!textSnackBar
+
   const dispatch = useAppDispatch()
 
   return (
