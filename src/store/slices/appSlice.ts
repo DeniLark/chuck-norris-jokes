@@ -4,7 +4,12 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit"
 import Action from "../actionTypes"
-import { loadJokes, saveJokes } from "../localStorage"
+import {
+  loadJokes,
+  saveJokes,
+  getIsDialogShow,
+  setIsDialogShow,
+} from "../localStorage"
 
 type Id = string
 
@@ -81,7 +86,7 @@ const appSlice = createSlice({
     jokes: loadJokes(),
     isSnackBar: false,
     textSnackBar: "",
-    isDialogAboutApp: false,
+    isDialogAboutApp: !getIsDialogShow(),
     textAlert: "",
   },
   reducers: {
@@ -137,6 +142,7 @@ const appSlice = createSlice({
     },
     closeDialogAboutApp: (state) => {
       state.isDialogAboutApp = false
+      setIsDialogShow()
     },
     openAlert: (state, action: PayloadAction<string>) => {
       state.textAlert = action.payload
