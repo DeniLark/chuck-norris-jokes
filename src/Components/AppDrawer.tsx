@@ -1,5 +1,12 @@
-import { Box, Drawer } from "@mui/material"
-import DrawerList from "./DraverList"
+import {
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  Typography,
+} from "@mui/material"
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import DrawerList from "./DrawerList"
 import { useEffect, useState } from "react"
 import {
   useAppDispatch,
@@ -71,6 +78,26 @@ function AppDrawer({ drawerWidth }: IProps) {
             : undefined
         }
       >
+        <Box
+          sx={{
+            p: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography component="h3" variant="h6">
+            Categories
+          </Typography>
+          {isMobile && (
+            <IconButton
+              onClick={() => dispatch(toggleMobileDrawer())}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+          )}
+        </Box>
+        <Divider />
         <DrawerList />
       </Drawer>
     </Box>
