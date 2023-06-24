@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import { Box } from "@mui/material"
 
 import AppMain from "./Components/AppMain"
@@ -11,23 +9,10 @@ import AppDialogAbout from "./Components/AppDialogAbout"
 import { drawerWidth } from "./constants"
 
 function App() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
-
   return (
     <Box sx={{ display: "flex" }}>
-      <AppHeader
-        drawerWidth={drawerWidth}
-        handleDrawerToggle={handleDrawerToggle}
-      />
-      <AppDrawer
-        drawerWidth={drawerWidth}
-        mobileOpen={mobileOpen}
-        handleDrawerToggle={handleDrawerToggle}
-      />
+      <AppHeader drawerWidth={drawerWidth} />
+      <AppDrawer drawerWidth={drawerWidth} />
       <AppMain drawerWidth={drawerWidth} />
 
       <AppSnackbar />

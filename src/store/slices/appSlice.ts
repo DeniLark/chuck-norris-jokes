@@ -87,6 +87,7 @@ const appSlice = createSlice({
     textSnackBar: "",
     isDialogAboutApp: !getIsDialogShow(),
     textAlert: "",
+    isMobileDrawerOpen: false,
   },
   reducers: {
     changeCategory: (
@@ -146,6 +147,9 @@ const appSlice = createSlice({
     closeAlert: (state) => {
       state.textAlert = ""
     },
+    toggleMobileDrawer: (state) => {
+      state.isMobileDrawerOpen = !state.isMobileDrawerOpen
+    },
   },
 })
 
@@ -165,5 +169,6 @@ export const {
   closeDialogAboutApp,
   openAlert,
   closeAlert,
+  toggleMobileDrawer,
 } = appSlice.actions
 export default appSlice.reducer

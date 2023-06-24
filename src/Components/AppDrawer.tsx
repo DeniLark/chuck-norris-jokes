@@ -1,18 +1,22 @@
 import { Box, Drawer } from "@mui/material"
 import DrawerList from "./DraverList"
 import { useEffect, useState } from "react"
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../store/hooks"
+import { toggleMobileDrawer } from "../store/slices/appSlice"
 
 interface IProps {
   drawerWidth: number
-  mobileOpen: boolean
-  handleDrawerToggle: () => void
 }
 
-function AppDrawer({
-  drawerWidth,
-  mobileOpen,
-  handleDrawerToggle,
-}: IProps) {
+function AppDrawer({ drawerWidth }: IProps) {
+  const mobileOpen = useAppSelector(
+    (state) => state.app.isMobileDrawerOpen
+  )
+  const dispatch = useAppDispatch()
+
   const [isMobile, setIsMobile] = useState<boolean | null>(
     null
   )
@@ -61,7 +65,11 @@ function AppDrawer({
             : undefined
         }
         open={isMobile ? mobileOpen : true}
-        onClose={handleDrawerToggle}
+        onClose={
+          isMobile
+            ? () => dispatch(toggleMobileDrawer())
+            : undefined
+        }
       >
         <DrawerList />
       </Drawer>

@@ -12,17 +12,16 @@ import {
   useAppSelector,
   useAppDispatch,
 } from "../store/hooks"
-import { openDialogAboutApp } from "../store/slices/appSlice"
+import {
+  openDialogAboutApp,
+  toggleMobileDrawer,
+} from "../store/slices/appSlice"
 
 interface IProps {
   drawerWidth: number
-  handleDrawerToggle: () => void
 }
 
-function Header({
-  drawerWidth,
-  handleDrawerToggle,
-}: IProps) {
+function Header({ drawerWidth }: IProps) {
   const currentCategory = useAppSelector(
     (state) => state.app.currentCategory
   )
@@ -43,7 +42,7 @@ function Header({
           color="inherit"
           aria-label="open drawer"
           edge="start"
-          onClick={handleDrawerToggle}
+          onClick={() => dispatch(toggleMobileDrawer())}
           sx={{ mr: 2, display: { sm: "none" } }}
         >
           <MenuIcon />
