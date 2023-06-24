@@ -10,7 +10,10 @@ import {
   useAppSelector,
   useAppDispatch,
 } from "../store/hooks"
-import { changeCategory } from "../store/slices/appSlice"
+import {
+  changeCategory,
+  toggleMobileDrawer,
+} from "../store/slices/appSlice"
 
 function DrawerList() {
   const listItems = useAppSelector(
@@ -28,9 +31,10 @@ function DrawerList() {
           <ListItem key={item.title} disablePadding>
             <ListItemButton
               selected={item.title === currentCategory}
-              onClick={() =>
+              onClick={() => {
+                dispatch(toggleMobileDrawer())
                 dispatch(changeCategory(item.title))
-              }
+              }}
             >
               <ListItemIcon>
                 <Icon>{item.icon}</Icon>
