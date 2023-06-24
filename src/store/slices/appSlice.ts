@@ -80,7 +80,7 @@ const appSlice = createSlice({
         icon: "flight",
       },
     ],
-    currentCategory: "dev",
+    currentCategory: "all",
     joke: null as IJoke | null,
     isLoad: false,
     jokes: loadJokes(),
