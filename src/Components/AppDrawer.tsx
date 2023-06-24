@@ -1,5 +1,6 @@
 import { Box, Drawer } from "@mui/material"
 import DrawerList from "./DraverList"
+import { useEffect, useState } from "react"
 
 interface IProps {
   drawerWidth: number
@@ -12,6 +13,29 @@ function AppDrawer({
   mobileOpen,
   handleDrawerToggle,
 }: IProps) {
+  const [isMobile, setIsMobile] = useState<boolean | null>(
+    null
+  )
+
+  const toggleIsMobile = (w: Window) => {
+    if (w.innerWidth < 600) setIsMobile(true)
+    else setIsMobile(false)
+  }
+
+  const handleResizeWindow = (event: Event) => {
+    toggleIsMobile(event.target as Window)
+  }
+
+  useEffect(() => {
+    toggleIsMobile(window)
+    window.addEventListener("resize", handleResizeWindow)
+    return () =>
+      window.removeEventListener(
+        "resize",
+        handleResizeWindow
+      )
+  }, [])
+
   return (
     <Box
       component="nav"
@@ -19,36 +43,25 @@ function AppDrawer({
         width: { sm: drawerWidth },
         flexShrink: { sm: 0 },
       }}
-      aria-label="mailbox folders"
+      aria-label="categories of jokes"
     >
-      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
       <Drawer
-        variant="temporary"
-        open={mobileOpen}
+        variant={isMobile ? "temporary" : "permanent"}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+          },
+        }}
+        ModalProps={
+          isMobile
+            ? {
+                keepMounted: true,
+              }
+            : undefined
+        }
+        open={isMobile ? mobileOpen : true}
         onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        sx={{
-          display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
-            width: drawerWidth,
-          },
-        }}
-      >
-        <DrawerList />
-      </Drawer>
-      <Drawer
-        variant="permanent"
-        sx={{
-          display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
-            width: drawerWidth,
-          },
-        }}
-        open
       >
         <DrawerList />
       </Drawer>
