@@ -85,9 +85,10 @@ const appSlice = createSlice({
     isLoad: false,
     jokes: loadJokes(),
     textSnackBar: "",
-    isDialogAboutApp: true, //!getIsDialogShow(),
+    isDialogAboutApp: !getIsDialogShow(),
     textAlert: "",
     isMobileDrawerOpen: false,
+    isCategoriesHighlighted: false,
   },
   reducers: {
     changeCategory: (
@@ -139,6 +140,7 @@ const appSlice = createSlice({
     },
     closeDialogAboutApp: (state) => {
       state.isDialogAboutApp = false
+      state.isCategoriesHighlighted = false
       setIsDialogShow()
     },
     openAlert: (state, action: PayloadAction<string>) => {
@@ -149,6 +151,12 @@ const appSlice = createSlice({
     },
     toggleMobileDrawer: (state) => {
       state.isMobileDrawerOpen = !state.isMobileDrawerOpen
+    },
+    trueCategoriesHighlighted: (state) => {
+      state.isCategoriesHighlighted = true
+    },
+    falseCategoriesHighlighted: (state) => {
+      state.isCategoriesHighlighted = false
     },
   },
 })
@@ -170,5 +178,7 @@ export const {
   openAlert,
   closeAlert,
   toggleMobileDrawer,
+  trueCategoriesHighlighted,
+  falseCategoriesHighlighted,
 } = appSlice.actions
 export default appSlice.reducer

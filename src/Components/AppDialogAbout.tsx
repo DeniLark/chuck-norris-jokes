@@ -16,7 +16,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../store/hooks"
-import { closeDialogAboutApp } from "../store/slices/appSlice"
+import {
+  closeDialogAboutApp,
+  trueCategoriesHighlighted,
+  falseCategoriesHighlighted,
+} from "../store/slices/appSlice"
 
 function AppDialogAbout() {
   const isOpen = useAppSelector(
@@ -45,13 +49,28 @@ function AppDialogAbout() {
           <Typography>
             This app gets fun facts about Chuck Norris from
             API{" "}
-            <Link href="https://api.chucknorris.io/">
+            <Link
+              target="_blank"
+              rel="noopener"
+              href="https://api.chucknorris.io/"
+            >
               https://api.chucknorris.io/
             </Link>
           </Typography>
           <Typography>
-            Select the joke category you are interested in
-            (on the left)
+            Select the joke category you are interested in (
+            <Link
+              sx={{ ":hover": { cursor: "pointer" } }}
+              onMouseEnter={() =>
+                dispatch(trueCategoriesHighlighted())
+              }
+              onMouseLeave={() =>
+                dispatch(falseCategoriesHighlighted())
+              }
+            >
+              on the left
+            </Link>
+            )
           </Typography>
           <Divider sx={{ my: 1 }} />
           <Typography>

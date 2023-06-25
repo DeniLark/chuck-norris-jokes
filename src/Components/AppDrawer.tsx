@@ -1,4 +1,10 @@
 import {
+  RefObject,
+  createRef,
+  useEffect,
+  useState,
+} from "react"
+import {
   Box,
   Divider,
   Drawer,
@@ -6,13 +12,14 @@ import {
   Typography,
 } from "@mui/material"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
-import DrawerList from "./DrawerList"
-import { useEffect, useState } from "react"
+
 import {
   useAppDispatch,
   useAppSelector,
 } from "../store/hooks"
 import { toggleMobileDrawer } from "../store/slices/appSlice"
+import DrawerList from "./DrawerList"
+import "./AppDrawer.scss"
 
 interface IProps {
   drawerWidth: number
@@ -47,6 +54,22 @@ function AppDrawer({ drawerWidth }: IProps) {
       )
   }, [])
 
+  const categoriesRef: RefObject<HTMLDivElement> =
+    createRef()
+  const isCategoriesHighlighted = useAppSelector(
+    (state) => state.app.isCategoriesHighlighted
+  )
+
+  useEffect(() => {
+    isCategoriesHighlighted
+      ? categoriesRef.current?.classList.add(
+          "drawer-categories-animated"
+        )
+      : categoriesRef.current?.classList.remove(
+          "drawer-categories-animated"
+        )
+  }, [isCategoriesHighlighted])
+
   return (
     <Box
       component="nav"
@@ -78,27 +101,31 @@ function AppDrawer({ drawerWidth }: IProps) {
             : undefined
         }
       >
-        <Box
-          sx={{
-            p: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography component="h3" variant="h6">
-            Categories
-          </Typography>
-          {isMobile && (
-            <IconButton
-              onClick={() => dispatch(toggleMobileDrawer())}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
-          )}
+        <Box ref={categoriesRef}>
+          <Box
+            sx={{
+              p: 2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography component="h3" variant="h6">
+              Categories
+            </Typography>
+            {isMobile && (
+              <IconButton
+                onClick={() =>
+                  dispatch(toggleMobileDrawer())
+                }
+              >
+                <ChevronLeftIcon />
+              </IconButton>
+            )}
+          </Box>
+          <Divider />
+          <DrawerList />
         </Box>
-        <Divider />
-        <DrawerList />
       </Drawer>
     </Box>
   )

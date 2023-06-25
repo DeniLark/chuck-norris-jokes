@@ -1,0 +1,17 @@
+.drawer-categories-animated {
+  border-radius: 5px;
+
+  animation: 1.5s linear 0s infinite
+    drawer-categories-animated;
+}
+
+@keyframes drawer-categories-animated {
+  from {
+    box-shadow: 4px 5px 2px red inset,
+      -4px -5px 2px red inset;
+  }
+
+  to {
+    box-shadow: none;
+  }
+}
