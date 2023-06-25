@@ -5,7 +5,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   IconButton,
+  Link,
+  Typography,
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
 
@@ -23,11 +26,7 @@ function AppDialogAbout() {
   const closeDialog = () => dispatch(closeDialogAboutApp())
 
   return (
-    <Dialog
-      open={isOpen}
-      maxWidth="lg"
-      onClose={closeDialog}
-    >
+    <Dialog open={isOpen} onClose={closeDialog}>
       <DialogTitle>
         About app
         <IconButton
@@ -42,46 +41,31 @@ function AppDialogAbout() {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Molestias atque in delectus ab eum et rerum
-          dicta, non dignissimos tempora! Dolore, suscipit
-          molestias qui minus magnam labore totam omnis
-          explicabo! Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Molestias atque in delectus ab
-          eum et rerum dicta, non dignissimos tempora!
-          Dolore, suscipit molestias qui minus magnam labore
-          totam omnis explicabo! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Molestias atque in
-          delectus ab eum et rerum dicta, non dignissimos
-          tempora! Dolore, suscipit molestias qui minus
-          magnam labore totam omnis explicabo! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit.
-          Molestias atque in delectus ab eum et rerum dicta,
-          non dignissimos tempora! Dolore, suscipit
-          molestias qui minus magnam labore totam omnis
-          explicabo! Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Molestias atque in delectus ab
-          eum et rerum dicta, non dignissimos tempora!
-          Dolore, suscipit molestias qui minus magnam labore
-          totam omnis explicabo! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Molestias atque in
-          delectus ab eum et rerum dicta, non dignissimos
-          tempora! Dolore, suscipit molestias qui minus
-          magnam labore totam omnis explicabo! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit.
-          Molestias atque in delectus ab eum et rerum dicta,
-          non dignissimos tempora! Dolore, suscipit
-          molestias qui minus magnam labore totam omnis
-          explicabo! Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Molestias atque in delectus ab
-          eum et rerum dicta, non dignissimos tempora!
-          Dolore, suscipit molestias qui minus magnam labore
-          totam omnis explicabo! v Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Molestias atque
-          in delectus ab eum et rerum dicta, non dignissimos
-          tempora! Dolore, suscipit molestias qui minus
-          magnam labore totam omnis explicabo!
+        <DialogContentText component="div">
+          <Typography>
+            This app gets fun facts about Chuck Norris from
+            API{" "}
+            <Link href="https://api.chucknorris.io/">
+              https://api.chucknorris.io/
+            </Link>
+          </Typography>
+          <Typography>
+            Select the joke category you are interested in
+            (on the left)
+          </Typography>
+          <Divider sx={{ my: 1 }} />
+          <Typography>
+            <Typography
+              component="span"
+              sx={{
+                textTransform: "uppercase",
+                fontWeight: "bold!important",
+              }}
+            >
+              Warning:
+            </Typography>{" "}
+            some jokes are for adult (18+)
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

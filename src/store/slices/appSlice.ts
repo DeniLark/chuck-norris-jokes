@@ -85,7 +85,7 @@ const appSlice = createSlice({
     isLoad: false,
     jokes: loadJokes(),
     textSnackBar: "",
-    isDialogAboutApp: !getIsDialogShow(),
+    isDialogAboutApp: true, //!getIsDialogShow(),
     textAlert: "",
     isMobileDrawerOpen: false,
   },
