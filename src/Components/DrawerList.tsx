@@ -14,11 +14,9 @@ import {
   changeCategory,
   toggleMobileDrawer,
 } from "../store/slices/appSlice"
+import { categories } from "../constants"
 
 function DrawerList() {
-  const listItems = useAppSelector(
-    (state) => state.app.categories
-  )
   const currentCategory = useAppSelector(
     (state) => state.app.currentCategory
   )
@@ -27,7 +25,7 @@ function DrawerList() {
   return (
     <div>
       <List>
-        {listItems.map((item) => (
+        {categories.map((item) => (
           <ListItem key={item.title} disablePadding>
             <ListItemButton
               selected={item.title === currentCategory}
