@@ -4,6 +4,8 @@
 
 Внимание некоторые шутки 18+
 
+[К приложению](https://denilark.github.io/chuck-norris-jokes/)
+
 ## Используются
 
 - typescript
