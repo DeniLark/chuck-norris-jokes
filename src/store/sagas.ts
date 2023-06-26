@@ -44,7 +44,7 @@ function* sagaWorkerFetchJoke(
   }
 }
 
-async function fetchJoke(category: string = "all") {
+async function fetchJoke(category = "all") {
   const baseUrl = "https://api.chucknorris.io/jokes/random"
   const url =
     category === "all"

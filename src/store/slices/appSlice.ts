@@ -49,7 +49,7 @@ const appSlice = createSlice({
       state.isLoad = false
     },
     addJoke: (state, action: PayloadAction<IJoke>) => {
-      let jokes = state.jokes
+      const jokes = state.jokes
       const index = jokes.findIndex(
         (j) => j.id === action.payload.id
       )
