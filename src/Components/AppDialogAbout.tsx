@@ -20,6 +20,7 @@ import {
   closeDialogAboutApp,
   trueCategoriesHighlighted,
   falseCategoriesHighlighted,
+  toggleMobileDrawer,
 } from "../store/slices/appSlice"
 
 function AppDialogAbout() {
@@ -60,6 +61,10 @@ function AppDialogAbout() {
           <Typography>
             Select the joke category you are interested in (
             <Link
+              onClick={() => {
+                dispatch(toggleMobileDrawer())
+                dispatch(trueCategoriesHighlighted())
+              }}
               sx={{ ":hover": { cursor: "pointer" } }}
               onMouseEnter={() =>
                 dispatch(trueCategoriesHighlighted())
